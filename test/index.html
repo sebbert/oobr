@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Oobr test</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../src/stdlib.js"></script>
+	<script type="text/javascript" src="../src/context.js"></script>
+    <script type="text/javascript" src="../src/parser.js"></script>
+    <script type="text/javascript" src="../src/runtime.js"></script>
+    <script type="text/javascript" src="test.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="editor">
+            <textarea id="code_input"></textarea>
+            <button id="compile_btn"><i class="fa fa-flask"></i> compile</button>
+            <button id="run_btn" disabled><i class="fa fa-play"></i> run</button>
+            <button id="step_btn" disabled><i class="fa fa-step-forward"></i> step</button>
+            <button id="reset_btn" disabled><i class="fa fa-refresh"></i> reset</button>
+        </div>
+
+        <h2>Output</h2>
+        <pre class="output" id="output"></pre>
+
+        <h2>Log</h2>
+        <pre class="output" id="log_output"></pre>
+    </div>
+</body>
+</html>
