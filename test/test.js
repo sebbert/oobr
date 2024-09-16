@@ -33,6 +33,22 @@ $(function() {
         $("#output").text(str);
     }
 
+    function formatOutput({ finished } = {}) {
+        var out = "";
+        out += "Current stack = " + JSON.stringify(runtime.stack) + "\n";
+        out += "Callstack     = " + JSON.stringify(runtime.callstack) + "\n";
+        out += "PC            = " + runtime.pc + "\n";
+        out += "Next token    = " + JSON.stringify(runtime.tokens[runtime.pc]) + "\n";
+        out += "Functions     = " + JSON.stringify(Object.keys(runtime.functions)) + "\n";
+        if(finished) out += "\nProgram finished.";
+
+        return out;
+    }
+
+    function updateOutput(args = {}) {
+        return setOutput(formatOutput(args))
+    }
+
 	$("#code_input").val(loadCode());
 
     $("#compile_btn").click(function() {
@@ -40,11 +56,12 @@ $(function() {
 
 		saveCode(code);
 
-
         try {
             runtime = new Runtime(code);
 
-            log("Compiled successfully into " + runtime.tokens.length + " tokens.");
+            log("Compiled successfully into " + runtime.tokens.length + " tokens: " + JSON.stringify(runtime.tokens, undefined, 4));
+            updateOutput()
+
             setActive(true);
         }
 
@@ -56,25 +73,13 @@ $(function() {
 
     $("#run_btn").click(function() {
         var result = runtime.run();
-        setOutput("Program finished with stack: " + JSON.stringify(result));
+        updateOutput({ finished: true });
     });
 
     $("#step_btn").click(function() {
         var result = runtime.step();
-        var out = "";
 
-        function tokenStr(t) {
-            if(t.type == 'string')
-                return '"' + t.value + '"';
-            else return t.value;
-        }
-
-        out += "Current stack = " + JSON.stringify(runtime.stack) + "\n";
-        out += "Callstack     = " + JSON.stringify(runtime.callstack) + "\n";
-        out += "PC            = " + runtime.pc + "\n";
-        if(!result) out += "\nProgram finished.";
-
-        setOutput(out);
+        updateOutput({ finished: !result });
     });
 
     $("#reset_btn").click(function() {
