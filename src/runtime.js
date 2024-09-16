@@ -35,16 +35,20 @@ window.Runtime.prototype.step = function() {
 			fnCaller.toJSON = function() { return "<func>"; }
 
 			// Jump to the closing parenthesis.
-			var _token;
-			var parenLevel = 0;
-			do {
-				_token = this.tokens[this.pc++];
-
-				if(_token.value === '{')
-					parenLevel++;
-				else if(_token.value === '}')
-					parenLevel--;
-			} while(parenLevel != 0);
+			var searchToken;
+			var level = 0;
+			while (true) {
+				searchToken = this.tokens[this.pc];
+				if(searchToken.value === '{') {
+					level++;
+				} else if(searchToken.value === '}') {
+					level--;
+					if (level === 0) {
+						break;
+					}
+				}
+				this.pc++;
+			}
 
 			this.stack.push(fnCaller);
 		}
