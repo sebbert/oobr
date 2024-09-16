@@ -8,9 +8,6 @@ window.Runtime = function(source) {
 
 	var parser = new Parser();
 	this.tokens = parser.parse(this.source);
-
-	for(fname in window.StdLib)
-		this.registerFunction(fname, window.StdLib[fname]);
 }
 
 window.Runtime.prototype.step = function() {
