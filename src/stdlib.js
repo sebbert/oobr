@@ -77,11 +77,10 @@ stdlib['%'] = stackReduce(function(a, b) { return a % b; });
 
 // -- Stack operations -- //
 
-// 1 2 swap => [2, 1]
-stdlib.swap = function() {
+// 1 2 swp => [2, 1]
+stdlib.swp = function() {
 	var last = this.stack.pop();
 	var first = this.stack.pop();
-
 	this.stack.push(last, first);
 }
 
