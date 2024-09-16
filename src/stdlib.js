@@ -42,7 +42,7 @@ stdlib.if = function() {
 	var fn = this.stack.pop();
 	var bool = this.stack.pop();
 
-	if(bool) fn.apply(this);
+	if(bool) this.callFunction(fn);
 }
 
 // false { 2 } { 3 } ifelse => [3]
@@ -52,9 +52,9 @@ stdlib.ifelse = function() {
 	var bool = this.stack.pop();
 
 	if(bool)
-		iffn.apply(this);
+		this.callFunction(iffn);
 	else
-		elsefn.apply(this);
+		this.callFunction(elsefn);
 }
 
 // -- Basic arithmetic -- //
@@ -107,20 +107,7 @@ stdlib.clear = function() {
 // { "Anonymous function" } call
 stdlib.call = function() {
 	var fn = this.stack.pop();
-	if(typeof fn === "string") {
-		if(fn in this.functions) {
-			this.functions[fn].apply(this);
-		}
-		else {
-			throw new Error(fn + " is not a function registered with the runtime")
-		}
-	}
-	else if(typeof fn === "function") {
-		fn.apply(this);
-	}
-	else {
-		throw new TypeError(fn + " is not a function ");
-	}
+	this.callFunction(fn);
 }
 
 // "square" { dup * } def => []

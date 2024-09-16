@@ -76,12 +76,19 @@ window.Runtime.prototype.registerFunction = function(name, fn) {
 	this.functions[name] = fn;
 };
 
-window.Runtime.prototype.callFunction = function(name) {
-	if(!(name in this.functions))
-	{
-		throw new Error("Function '" + name + "' is not registered with the runtime.");
-		return;
+window.Runtime.prototype.callFunction = function(fn) {
+	if(typeof fn === "string") {
+		const resolved = this.functions[fn] ?? window.StdLib[fn];
+		if (!resolved) {
+			throw new Error(`Unknown function ${fn}`);
+		}
+		fn = resolved;
 	}
 
-	this.functions[name].apply(this);
+	if(typeof fn === "function") {
+		fn.apply(this);
+	}
+	else {
+		throw new Error(`Unknown function ${fn}`);
+	}
 };
