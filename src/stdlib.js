@@ -90,6 +90,23 @@ stdlib.dup = function() {
 	this.stack.push(val, val);
 }
 
+// 1 2 3  2 nth => [1, 2, 3, 1]
+stdlib.nth = function() {
+	const offset = this.stack.pop();
+	const index = this.stack.length - 1 - offset;
+	const value = this.stack[index];
+	this.stack.push(value)
+}
+
+// 1 2 3  1 xch => [1,3,2]
+stdlib.xch = function() {
+	const offset = this.stack.pop();
+	const top = this.stack.length - 1;
+	const elm = top - offset;
+	const s = this.stack;
+	[s[top], s[elm]] = [s[elm], s[top]];
+}
+
 // 1 2 drop => [1]
 stdlib.drop = function() {
 	this.stack.pop();
