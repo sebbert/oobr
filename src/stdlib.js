@@ -1,4 +1,4 @@
-var stdlib = {};
+var stdlib = window.StdLib = {};
 
 // Quick helper that pops two elements from the stack, reduces them with a function, and pushes the result back onto the stack.
 function stackReduce(fn)
@@ -121,5 +121,3 @@ stdlib.def = function() {
 	this.registerFunction(name, function() { fn.apply(ctx); });
 }
 
-
-window.StdLib = stdlib;
