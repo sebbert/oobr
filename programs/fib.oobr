@@ -1,0 +1,22 @@
+"fib" {
+    dup 1000 < {
+        swp 1 nth + fib
+    } {
+        swp drop
+    } ifelse
+} def
+
+"nthfib" {
+    dup 0 > {
+        2 xch 1 nth
+        +
+        swp 2 xch
+        1 -
+        nthfib
+    } {
+        drop swp drop
+    } ifelse
+} def
+
+"test fib" 0 1 fib
+"test nthfib" 0 1 16 nthfib
