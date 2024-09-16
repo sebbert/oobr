@@ -9,8 +9,6 @@ window.Parser.prototype.parse = function(source) {
 	var tokens = [];
 
 	while((match = rx.exec(source)) != null) {
-
-		console.log(match);
 		// Ok, here goes. Basically what we need to do is decide what type
 		// of token each match is based on what the capture groups return.
 		// Sadly, javascript doesn't support named capture groups :(
